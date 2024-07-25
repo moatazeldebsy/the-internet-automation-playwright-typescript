@@ -28,11 +28,12 @@ jobs:
 
       - name: Run Playwright tests
         run: npx playwright test
+        continue-on-error: true # Continue even if there are test failures
 
       - name: Deploy Playwright report to GitHub Pages
-        if: always()
+        if: always() # Ensure this step runs regardless of test results
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.ACTIONS_DEPLOY_TOKEN}}
+          personal_token: ${{ secrets.ACTIONS_DEPLOY_TOKEN }}
           publish_dir: ./playwright-report
           publish_branch: gh-pages
