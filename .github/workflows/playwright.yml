@@ -57,7 +57,7 @@ jobs:
             \"text\": \"*Playwright Test Run: $STATUS*\n:gear: *Job*: ${{ github.workflow }}\n:octocat: *Branch*: ${{ github.ref_name }}\n:clipboard: *Commit*: ${{ github.sha }}\n:bust_in_silhouette: *Author*: ${{ github.actor }}\n:link: *Report*: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}\",
             \"attachments\": [
               {
-                \"text\": \":mag_right: *View Report*: <https://<your-github-username>.github.io/<your-repo-name>/playwright-report/|Click Here>\"
+                \"text\": \":mag_right: *View Report*: <https://moatazeldebsy.github.io/the-internet-automation-playwright-typescript/|Click Here>\"
               }
             ]
           }" $SLACK_WEBHOOK_URL
