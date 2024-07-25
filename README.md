@@ -1,6 +1,6 @@
 # The Internet Automation with Playwright and TypeScript
 
-This project is designed to automate testing of various web functionalities using Playwright in a TypeScript setup. It targets a demo website known as "The Internet" for practicing automation testing.
+This project is designed to automate the testing of various web functionalities using Playwright in a TypeScript setup. It targets a demo website called [The Internet](https://the-internet.herokuapp.com/) for practicing automation testing.
 
 ## Features
 
@@ -19,4 +19,4 @@ This project is designed to automate testing of various web functionalities usin
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/your-username/the-internet-automation-typescript-playwright.git
+   git clone https://github.com/moatazeldebsy/the-internet-automation-typescript-playwright.git
