@@ -27,13 +27,37 @@ jobs:
           npx playwright install
 
       - name: Run Playwright tests
-        run: npx playwright test
+        id: playwright-tests
+        run: npx playwright test --trace on-first-retry
         continue-on-error: true # Continue even if there are test failures
 
-      - name: Deploy Playwright report to GitHub Pages
+      - name: Upload Playwright report
+        uses: actions/upload-artifact@v2
         if: always() # Ensure this step runs regardless of test results
+        with:
+          name: playwright-report
+          path: playwright-report
+
+      - name: Deploy Playwright report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
+        if: always() # Ensure this step runs regardless of test results
         with:
           personal_token: ${{ secrets.ACTIONS_DEPLOY_TOKEN }}
           publish_dir: ./playwright-report
           publish_branch: gh-pages
+
+      - name: Send Slack Notification
+        if: always() # Ensure this step runs regardless of test results
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          STATUS=":white_check_mark: PASSED"
+          if [ "${{ job.status }}" != "success" ]; then STATUS=":x: FAILED"; fi
+          curl -X POST -H 'Content-type: application/json' --data "{
+            \"text\": \"*Playwright Test Run: $STATUS*\n:gear: *Job*: ${{ github.workflow }}\n:octocat: *Branch*: ${{ github.ref_name }}\n:clipboard: *Commit*: ${{ github.sha }}\n:bust_in_silhouette: *Author*: ${{ github.actor }}\n:link: *Report*: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}\",
+            \"attachments\": [
+              {
+                \"text\": \":mag_right: *View Report*: <https://<your-github-username>.github.io/<your-repo-name>/playwright-report/|Click Here>\"
+              }
+            ]
+          }" $SLACK_WEBHOOK_URL
