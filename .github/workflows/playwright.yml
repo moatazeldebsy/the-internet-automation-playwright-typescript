@@ -1,4 +1,3 @@
-# .github/workflows/playwright.yml
 name: Playwright Tests
 
 on: [push, pull_request]
@@ -7,45 +6,20 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        browser: [firefox, webkit, googlechrome]
-
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-      - name: Set Up Node.js
+      - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: '16' # Ensure this matches your project requirements
 
-      - name: Install Dependencies
-        run: npm install
+      - name: Install dependencies
+        run: |
+          npm install
+          npx playwright install
 
-      - name: Run Playwright Tests
-        run: npx playwright test
-
-      - name: Upload Playwright Report
-        uses: actions/upload-artifact@v3
-        with:
-          name: playwright-report
-          path: playwright-report
-
-      - name: Upload Videos
-        uses: actions/upload-artifact@v3
-        with:
-          name: test-videos
-          path: test-results/videos
-
-      - name: Upload Screenshots
-        uses: actions/upload-artifact@v3
-        with:
-          name: test-screenshots
-          path: test-results/screenshots
-
-      - name: Upload Traces
-        uses: actions/upload-artifact@v3
-        with:
-          name: test-traces
-          path: test-results/traces
+      - name: Run Playwright tests
+        run: |
+          npx playwright test --reporter=html
