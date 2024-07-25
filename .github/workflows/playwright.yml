@@ -54,7 +54,7 @@ jobs:
           STATUS=":white_check_mark: PASSED"
           if [ "${{ job.status }}" != "success" ]; then STATUS=":x: FAILED"; fi
           curl -X POST -H 'Content-type: application/json' --data "{
-            \"text\": \"*Playwright Test Run: $STATUS*\n:gear: *Job*: ${{ github.workflow }}\n:branch: *Branch*: ${{ github.ref_name }}\n:clipboard: *Commit*: ${{ github.sha }}\n:bust_in_silhouette: *Author*: ${{ github.actor }}\n:link: *Report*: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}\",
+            \"text\": \"*Playwright Test Run: $STATUS*\n:gear: *Job*: ${{ github.workflow }}\n:git: *Branch*: ${{ github.ref_name }}\n:clipboard: *Commit*: ${{ github.sha }}\n:bust_in_silhouette: *Author*: ${{ github.actor }}\n:link: *Report*: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}\",
             \"attachments\": [
               {
                 \"text\": \":mag_right: *View Report*: <https://moatazeldebsy.github.io/the-internet-automation-playwright-typescript/|Click Here>\"
